@@ -1,0 +1,6 @@
+{
+  "name": "XG Mobile Game Bar",
+  "description": "Widget de Xbox Game Bar para ASUS ROG Xbox Ally X con telemetría en vivo de la eGPU ROG XG Mobile y desacoplamiento seguro en Modo Juego Xbox.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
