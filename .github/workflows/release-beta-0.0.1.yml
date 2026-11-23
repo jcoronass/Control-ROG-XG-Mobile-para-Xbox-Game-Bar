@@ -20,8 +20,23 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar MSBuild (Visual Studio 2022)
-        uses: microsoft/setup-msbuild@v2
+      - name: Configurar MSBuild (Visual Studio 2022 nativo vía vswhere)
+        shell: powershell
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $msbuildExe = & $vswhere -latest -requires Microsoft.Component.MSBuild -find "MSBuild\**\Bin\MSBuild.exe" | Select-Object -First 1
+          if (-not $msbuildExe) {
+            $msbuildExe = Get-ChildItem "C:\Program Files\Microsoft Visual Studio\2022" -Recurse -Filter "MSBuild.exe" -ErrorAction SilentlyContinue |
+              Where-Object { $_.FullName -match "\\Bin\\MSBuild\.exe$" } |
+              Select-Object -First 1 -ExpandProperty FullName
+          }
+          if (-not $msbuildExe) {
+            Write-Error "No se encontró MSBuild.exe de Visual Studio 2022 en el runner."
+            exit 1
+          }
+          $msbuildDir = Split-Path -Parent $msbuildExe
+          Write-Host "MSBuild detectado en: $msbuildExe"
+          Add-Content -Path $env:GITHUB_PATH -Value $msbuildDir
 
       - name: Configurar .NET 8 SDK
         uses: actions/setup-dotnet@v4
