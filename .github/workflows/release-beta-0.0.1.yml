@@ -114,6 +114,7 @@ jobs:
       - name: Compilar y empaquetar MSIX firmado (Release x64)
         shell: powershell
         run: |
+          $pfxPath = Join-Path "${{ github.workspace }}" "XGMobile.Package\XGMobileBeta_TempKey.pfx"
           msbuild XGMobile.Package\XGMobile.Package.wapproj `
             /p:Configuration=Release `
             /p:Platform=x64 `
@@ -121,7 +122,7 @@ jobs:
             /p:AppxBundle=Never `
             /p:GenerateAppxPackageOnBuild=true `
             /p:AppxPackageSigningEnabled=true `
-            /p:PackageCertificateKeyFile="XGMobileBeta_TempKey.pfx" `
+            /p:PackageCertificateKeyFile="$pfxPath" `
             /p:PackageCertificatePassword="XGMobileBeta001!" `
             /p:AppxPackageDir="${{ github.workspace }}\AppPackages\"
 
@@ -164,12 +165,11 @@ jobs:
 
           Compilación automática para consola handheld Windows 11 con **AMD Ryzen Z2 Extreme (VEN_1002)** + **ASUS XG Mobile NVIDIA RTX 5070 Ti (VEN_10DE)**.
 
-          ### Instalación en 1 paso (doble clic en tu consola)
-          1. Activa el **Modo para programadores** en *Configuración → Sistema → Para programadores*.
-          2. Descarga **`XGMobile-GameBar-Beta-0.0.1.zip`** y descomprímelo.
-          3. Haz **doble clic en `Instalar-DobleClick.bat`** y acepta el aviso de administrador.
-          4. Pulsa el **botón Xbox** o **`Win + G`**, abre **Widgets** y fija **`XG Mobile RTX 5070 Ti`**.
-          5. Personaliza tus juegos en **`C:\eGPU_Profiles\games_profiles.json`**.
+          ### Instalación en 1 paso (doble clic en tu consola, sin Modo para programadores)
+          1. Descarga **`XGMobile-GameBar-Beta-0.0.1.zip`** y descomprímelo.
+          2. Haz **doble clic en `Instalar-DobleClick.bat`** y acepta el aviso de administrador (instala el certificado Beta y el paquete `.msix` firmado).
+          3. Pulsa el **botón Xbox** o **`Win + G`**, abre **Widgets** y fija **`XG Mobile RTX 5070 Ti`**.
+          4. Personaliza tus juegos en **`C:\eGPU_Profiles\games_profiles.json`**.
           "@
 
           $exists = gh release view $env:RELEASE_TAG 2>$null
