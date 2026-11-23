@@ -1,0 +1,30 @@
+[
+  {
+    "GameName": "Cyberpunk 2077",
+    "ExecutableName": "Cyberpunk2077.exe",
+    "TargetConfigPath": "%LOCALAPPDATA%\\CD Projekt Red\\Cyberpunk 2077\\UserSettings.json",
+    "EgpuBackupPath": "C:\\eGPU_Profiles\\eGPU\\Cyberpunk2077\\UserSettings.json",
+    "HandheldBackupPath": "C:\\eGPU_Profiles\\Handheld\\Cyberpunk2077\\UserSettings.json"
+  },
+  {
+    "GameName": "Forza Horizon 5",
+    "ExecutableName": "ForzaHorizon5.exe",
+    "TargetConfigPath": "%LOCALAPPDATA%\\ForzaHorizon5\\User_Config.xml",
+    "EgpuBackupPath": "C:\\eGPU_Profiles\\eGPU\\ForzaHorizon5\\User_Config.xml",
+    "HandheldBackupPath": "C:\\eGPU_Profiles\\Handheld\\ForzaHorizon5\\User_Config.xml"
+  },
+  {
+    "GameName": "Starfield",
+    "ExecutableName": "Starfield.exe",
+    "TargetConfigPath": "%USERPROFILE%\\Documents\\My Games\\Starfield\\StarfieldPrefs.ini",
+    "EgpuBackupPath": "C:\\eGPU_Profiles\\eGPU\\Starfield\\StarfieldPrefs.ini",
+    "HandheldBackupPath": "C:\\eGPU_Profiles\\Handheld\\Starfield\\StarfieldPrefs.ini"
+  },
+  {
+    "GameName": "Black Myth: Wukong",
+    "ExecutableName": "b1-Win64-Shipping.exe",
+    "TargetConfigPath": "%LOCALAPPDATA%\\b1\\Saved\\Config\\Windows\\GameUserSettings.ini",
+    "EgpuBackupPath": "C:\\eGPU_Profiles\\eGPU\\BlackMythWukong\\GameUserSettings.ini",
+    "HandheldBackupPath": "C:\\eGPU_Profiles\\Handheld\\BlackMythWukong\\GameUserSettings.ini"
+  }
+]

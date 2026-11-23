@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XGMobile.Widget", "XGMobile.Widget\XGMobile.Widget.csproj", "{B7E4A101-6A1F-4B2C-9E11-111111111101}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XGMobile.Helper", "XGMobile.Helper\XGMobile.Helper.csproj", "{B7E4A102-6A1F-4B2C-9E11-222222222202}"
+EndProject
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "XGMobile.Package", "XGMobile.Package\XGMobile.Package.wapproj", "{B7E4A103-6A1F-4B2C-9E11-333333333303}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7E4A101-6A1F-4B2C-9E11-111111111101}.Debug|x64.ActiveCfg = Debug|x64
+		{B7E4A101-6A1F-4B2C-9E11-111111111101}.Debug|x64.Build.0 = Debug|x64
+		{B7E4A101-6A1F-4B2C-9E11-111111111101}.Debug|x64.Deploy.0 = Debug|x64
+		{B7E4A101-6A1F-4B2C-9E11-111111111101}.Release|x64.ActiveCfg = Release|x64
+		{B7E4A101-6A1F-4B2C-9E11-111111111101}.Release|x64.Build.0 = Release|x64
+		{B7E4A101-6A1F-4B2C-9E11-111111111101}.Release|x64.Deploy.0 = Release|x64
+		{B7E4A102-6A1F-4B2C-9E11-222222222202}.Debug|x64.ActiveCfg = Debug|x64
+		{B7E4A102-6A1F-4B2C-9E11-222222222202}.Debug|x64.Build.0 = Debug|x64
+		{B7E4A102-6A1F-4B2C-9E11-222222222202}.Release|x64.ActiveCfg = Release|x64
+		{B7E4A102-6A1F-4B2C-9E11-222222222202}.Release|x64.Build.0 = Release|x64
+		{B7E4A103-6A1F-4B2C-9E11-333333333303}.Debug|x64.ActiveCfg = Debug|x64
+		{B7E4A103-6A1F-4B2C-9E11-333333333303}.Debug|x64.Build.0 = Debug|x64
+		{B7E4A103-6A1F-4B2C-9E11-333333333303}.Debug|x64.Deploy.0 = Debug|x64
+		{B7E4A103-6A1F-4B2C-9E11-333333333303}.Release|x64.ActiveCfg = Release|x64
+		{B7E4A103-6A1F-4B2C-9E11-333333333303}.Release|x64.Build.0 = Release|x64
+		{B7E4A103-6A1F-4B2C-9E11-333333333303}.Release|x64.Deploy.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

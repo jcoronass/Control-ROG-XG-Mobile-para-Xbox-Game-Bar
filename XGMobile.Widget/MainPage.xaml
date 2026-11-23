@@ -1,0 +1,177 @@
+<Page
+    x:Class="XGMobile.Widget.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="#EB0E1218"
+    XYFocusKeyboardNavigation="Enabled"
+    Loaded="OnPageLoaded"
+    Unloaded="OnPageUnloaded">
+
+    <Grid Padding="16" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Cabecera + Indicador principal de Modo Hardware -->
+        <Border Grid.Row="0"
+                x:Name="ModeStatusBorder"
+                Background="#141A22"
+                BorderBrush="#16A34A"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="12">
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Spacing="3">
+                    <TextBlock x:Name="HardwareModeTitle"
+                               Text="MODO eGPU: RTX 5070 Ti Activa"
+                               FontSize="15"
+                               FontWeight="Bold"
+                               Foreground="#F8FAFC" />
+                    <TextBlock x:Name="HardwareSubStatus"
+                               Text="Bus PCIe/USB4 detectado (VEN_10DE) · iGPU Ryzen Z2E en espera"
+                               FontSize="11.5"
+                               Foreground="#94A3B8"
+                               TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+
+                <Button x:Name="RefreshButton"
+                        Grid.Column="1"
+                        Content="Actualizar"
+                        Click="OnRefreshClicked"
+                        Background="#1E2632"
+                        Foreground="#E2E8F0"
+                        FontSize="11.5"
+                        Padding="10,6"
+                        CornerRadius="6"
+                        VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+
+        <!-- Acción principal: Desacoplar XG Mobile de forma segura -->
+        <StackPanel Grid.Row="1" Spacing="8">
+            <Button x:Name="SafeEjectButton"
+                    Content="Desacoplar XG Mobile de forma segura (X)"
+                    Click="OnSafeEjectClicked"
+                    HorizontalAlignment="Stretch"
+                    MinHeight="46"
+                    Background="#107C10"
+                    Foreground="#FFFFFF"
+                    FontSize="13.5"
+                    FontWeight="SemiBold"
+                    CornerRadius="8" />
+
+            <ProgressBar x:Name="OperationProgressBar"
+                         IsIndeterminate="False"
+                         Value="0"
+                         Maximum="100"
+                         Height="4"
+                         Foreground="#22C55E"
+                         Background="#1E2530"
+                         Visibility="Collapsed" />
+
+            <TextBlock x:Name="OperationStatusText"
+                       Text="Conectando con el servicio Win32 (AppServiceConnection)..."
+                       FontSize="12"
+                       Foreground="#CBD5E1"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <!-- Alerta de procesos bloqueando la RTX 5070 Ti o Veto PnP -->
+        <Border Grid.Row="2"
+                x:Name="WarningBanner"
+                Background="#261B12"
+                BorderBrush="#D97706"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="10"
+                Visibility="Collapsed">
+            <StackPanel Spacing="4">
+                <TextBlock x:Name="WarningTitleText"
+                           Text="Expulsión bloqueada"
+                           FontSize="12.5"
+                           FontWeight="SemiBold"
+                           Foreground="#FCD34D" />
+                <TextBlock x:Name="WarningDetailsText"
+                           Text=""
+                           FontSize="11.5"
+                           Foreground="#FDE68A"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <!-- Estado de Dual Profile Swapper -->
+        <Border Grid.Row="3"
+                Background="#131820"
+                BorderBrush="#252E3C"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="12">
+            <Grid RowSpacing="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Gestor Automático de Perfiles (C:\eGPU_Profiles)"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="#E2E8F0" />
+
+                <TextBlock x:Name="LastSyncedGameText"
+                           Grid.Row="1"
+                           Text="Último juego sincronizado: Ninguno todavía"
+                           FontSize="12"
+                           FontFamily="Consolas"
+                           Foreground="#86EFAC"
+                           TextWrapping="Wrap" />
+
+                <TextBlock x:Name="ProfileSummaryText"
+                           Grid.Row="2"
+                           Text="Escuchando eventos Win32_DeviceChangeEvent para intercambiar ajustes al acoplar o desacoplar."
+                           FontSize="11.5"
+                           Foreground="#94A3B8"
+                           TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+
+        <!-- Acción secundaria: Forzar sincronización de perfiles -->
+        <Grid Grid.Row="4" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="HelperBridgeText"
+                       VerticalAlignment="Center"
+                       Text="Bridge Win32: Esperando..."
+                       FontSize="11"
+                       FontFamily="Consolas"
+                       Foreground="#64748B"
+                       TextTrimming="CharacterEllipsis" />
+
+            <Button x:Name="ForceSyncButton"
+                    Grid.Column="1"
+                    Content="Sincronizar perfiles ahora (Y)"
+                    Click="OnForceSyncClicked"
+                    MinHeight="38"
+                    Background="#1D2532"
+                    BorderBrush="#334155"
+                    BorderThickness="1"
+                    Foreground="#F8FAFC"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Padding="14,8"
+                    CornerRadius="6" />
+        </Grid>
+    </Grid>
+</Page>

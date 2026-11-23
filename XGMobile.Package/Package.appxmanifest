@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap uap3 desktop rescap">
+
+  <Identity
+    Name="XGMobile.RTX5070Ti.GameBarWidget"
+    Publisher="CN=XGMobileBetaDev"
+    Version="0.0.1.0" />
+
+  <Properties>
+    <DisplayName>XG Mobile RTX 5070 Ti Control</DisplayName>
+    <PublisherDisplayName>ROG Z2E Handheld Community</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="es-ES" />
+  </Resources>
+
+  <Applications>
+    <Application
+      Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="XGMobile.Widget.App">
+      <uap:VisualElements
+        DisplayName="XG Mobile RTX 5070 Ti"
+        Description="Widget Xbox Game Bar para desacoplamiento seguro PnP (cfgmgr32) y sincronización dual de perfiles Handheld/eGPU"
+        BackgroundColor="transparent"
+        Square150x150Logo="Images\Square150x150Logo.png"
+        Square44x44Logo="Images\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Images\SplashScreen.png" />
+      </uap:VisualElements>
+
+      <Extensions>
+        <!-- 1. Registro oficial como Widget de Xbox Game Bar (microsoft.gameBarUIExtension / xboxGameBarWidget) -->
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension
+            Name="microsoft.gameBarUIExtension"
+            Id="XGMobileRTX5070TiWidget"
+            DisplayName="XG Mobile RTX 5070 Ti"
+            Description="Expulsión segura PCIe/USB4 y gestor de perfiles Dual Swap"
+            PublicFolder="Public">
+            <uap3:Properties>
+              <GameBarWidget Type="Standard">
+                <HomeMenuVisible>true</HomeMenuVisible>
+                <PinningSupported>true</PinningSupported>
+                <Window>
+                  <Size>
+                    <Height>440</Height>
+                    <Width>460</Width>
+                  </Size>
+                  <MinSize>
+                    <Height>340</Height>
+                    <Width>360</Width>
+                  </MinSize>
+                  <MaxSize>
+                    <Height>640</Height>
+                    <Width>720</Width>
+                  </MaxSize>
+                  <ResizeSupported>
+                    <Horizontal>true</Horizontal>
+                    <Vertical>true</Vertical>
+                  </ResizeSupported>
+                </Window>
+              </GameBarWidget>
+            </uap3:Properties>
+          </uap3:AppExtension>
+        </uap3:Extension>
+
+        <!-- 2. Servicio bidireccional in-process AppServiceConnection entre UWP y el helper Win32 -->
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="XGMobile.AppService" />
+        </uap:Extension>
+
+        <!-- 3. Proceso auxiliar Win32 .NET 8 con confianza total (P/Invoke cfgmgr32 + WMI + File Swap) -->
+        <desktop:Extension
+          Category="windows.fullTrustProcess"
+          Executable="XGMobile.Helper\XGMobile.Helper.exe" />
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
